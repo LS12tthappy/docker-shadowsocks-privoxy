@@ -1,5 +1,7 @@
-FROM alpine:latest
+FROM shadowsocks/shadowsocks-libev:latest
 MAINTAINER bluebu <bluebuwang@gmail.com>
+
+USER root
 
 #------------------------------------------------------------------------------
 # Environment variables:
@@ -7,15 +9,12 @@ MAINTAINER bluebu <bluebuwang@gmail.com>
 
 RUN \
   apk --update --upgrade add \
-      py-pip \
       privoxy \
   && rm /var/cache/apk/*
 
-RUN pip install shadowsocks
-
 ENV SERVER_ADDR= \
     SERVER_PORT=8899  \
-    METHOD=aes-256-cfb \
+    METHOD=aes-256-gcm \
     TIMEOUT=300 \
     PASSWORD=
 
